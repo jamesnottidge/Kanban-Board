@@ -1,13 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { StateProvider } from "./StateContext";
+import { combineReducers } from "./logic-containers/utils";
+import { boardsListReducer } from "./logic-containers/boardsList";
+import { boardReducer } from "./logic-containers/boardReducer";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const reducer = combineReducers(boardsListReducer, boardReducer);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <StateProvider reducer={reducer}>
+      <App />
+    </StateProvider>
   </React.StrictMode>
 );
 
