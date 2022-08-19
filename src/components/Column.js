@@ -12,10 +12,10 @@ export const Column = (props) => {
       {currentBoard.tasks.map((task) => {
         if (task.status === name) {
           return (
-            <p>
+            <div key={task.id}>
               <Task task={task} />
               <br />
-            </p>
+            </div>
           );
         } else {
           return null;

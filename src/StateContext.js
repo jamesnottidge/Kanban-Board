@@ -8,8 +8,7 @@ const initializer = () => ({
     inFlight: false,
     error: null,
   },
-  currentBoardId: 1,
-  currentBoard: null,
+  currentBoardId: 0,
 });
 
 export const StateProvider = ({ children, reducer }) => {
