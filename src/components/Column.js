@@ -7,7 +7,7 @@ export const Column = (props) => {
   const { currentBoard } = useBoard();
 
   return (
-    <div key={id}>
+    <div key={id} className="border-4 border-black">
       {name}({tasks.length})
       {currentBoard.tasks.map((task) => {
         if (task.status === name) {

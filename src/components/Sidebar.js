@@ -17,7 +17,11 @@ export const Sidebar = (props) => {
       <header>KANBAN</header>
       <p>ALL BOARDS({boardsList.length})</p>
       {boardsList.map((board) => {
-        return <div onClick={() => setBoardId(board.id)}>{board.name}</div>;
+        return (
+          <div onClick={() => setBoardId(board.id)} className="">
+            {board.name}
+          </div>
+        );
       })}
       {/* <AddBoardModal /> */}
     </div>
