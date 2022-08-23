@@ -3,17 +3,19 @@ import { useBoard } from "../logic-containers/boardReducer";
 import { Task } from "./Task";
 
 export const Column = (props) => {
-  const { name, id, tasks } = props.column;
+  const { column } = props;
+  const { name, tasks } = column;
+  //   console.log(column);
   const { currentBoard } = useBoard();
 
   return (
-    <div key={id} className="border-4 border-black">
+    <div className="border-4 border-black">
       {name}({tasks.length})
       {currentBoard.tasks.map((task) => {
         if (task.status === name) {
           return (
             <div key={task.id}>
-              <Task task={task} />
+              <Task task={task} column={column} />
               <br />
             </div>
           );

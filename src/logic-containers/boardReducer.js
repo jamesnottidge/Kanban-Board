@@ -1,6 +1,5 @@
 import { useGlobalState } from "../StateContext";
 import { combineReducers, createActionAndReducer } from "./utils";
-import dataJson from "../data.json";
 const [setCurrentBoardId, currentBoardIdReducer] = createActionAndReducer(
   "board/setcurrentBoardId",
   (state, payload) => {
@@ -14,27 +13,28 @@ const [setCurrentBoardId, currentBoardIdReducer] = createActionAndReducer(
 const [addTask, addTaskReducer] = createActionAndReducer(
   "board/addTask",
   (state, payload) => {
+    const { data } = state;
     let boardLocation;
-    for (let i = 0; i < dataJson.data.length; i++) {
-      if (dataJson.data[i].id === state.currentBoardId) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].id === state.currentBoardId) {
         boardLocation = i;
       }
     }
 
-    dataJson.data[boardLocation] = {
-      ...dataJson.data[boardLocation],
+    data[boardLocation] = {
+      ...data[boardLocation],
       tasks: [
-        ...dataJson.data[boardLocation].tasks,
+        ...data[boardLocation].tasks,
         {
           ...payload,
         },
       ],
     };
 
-    for (let i = 0; i < dataJson.data[boardLocation].columns.length; i++) {
-      if (dataJson.data[boardLocation].columns[i].name === payload.status) {
-        dataJson.data[boardLocation].columns[i].tasks.push(payload.id);
-        console.log(dataJson.data[boardLocation].columns[i]);
+    for (let i = 0; i < data[boardLocation].columns.length; i++) {
+      if (data[boardLocation].columns[i].name === payload.status) {
+        data[boardLocation].columns[i].tasks.push(payload.id);
+        console.log(data[boardLocation].columns[i]);
       }
     }
 
@@ -46,13 +46,14 @@ const [addTask, addTaskReducer] = createActionAndReducer(
 const [addColumn, addColumnReducer] = createActionAndReducer(
   "board/addColumn",
   (state, payload) => {
-    for (let i = 0; i < dataJson.data.length; i++) {
-      if (dataJson.data[i].id === state.currentBoardId) {
+    const { data } = state;
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].id === state.currentBoardId) {
         // dataJson.data[i].columns.push(payload);
-        dataJson.data[i] = {
-          ...dataJson.data[i],
+        data[i] = {
+          ...data[i],
           columns: [
-            ...dataJson.data[i].columns,
+            ...data[i].columns,
             {
               ...payload,
             },
@@ -69,8 +70,8 @@ const [addColumn, addColumnReducer] = createActionAndReducer(
 const [addBoard, addBoardReducer] = createActionAndReducer(
   "board/addBoard",
   (state, payload) => {
-    dataJson.data.push(payload);
-    console.log(dataJson.data);
+    const { data } = state;
+    data.push(payload);
     return {
       ...state,
     };
@@ -80,23 +81,72 @@ const [addBoard, addBoardReducer] = createActionAndReducer(
 const [editBoard, editBoardReducer] = createActionAndReducer(
   "board/editBoard",
   (state, payload) => {
+    const { data } = state;
     let boardLocation;
-    for (let i = 0; i < dataJson.data.length; i++) {
-      if (dataJson.data[i].id === state.currentBoardId) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].id === state.currentBoardId) {
         boardLocation = i;
       }
     }
 
-    dataJson.data[boardLocation] = {
-      ...dataJson.data[boardLocation],
+    data[boardLocation] = {
+      ...data[boardLocation],
       name: payload.name,
       columns: [...payload.columns],
     };
 
-    console.log(dataJson.data[boardLocation].columns);
+    console.log(data[boardLocation].columns);
 
     return {
       ...state,
+    };
+  }
+);
+
+const [completeTask, completeTaskReducer] = createActionAndReducer(
+  "board/completeTask",
+  (state, payload) => {
+    const { data, currentBoardId } = state;
+    const updatedData = data.map((board) => {
+      if (board.id !== currentBoardId) return board;
+      const { tasks, columns } = board;
+
+      return {
+        ...board,
+        tasks: tasks.map((task) => {
+          if (task.id !== payload.id) return task;
+
+          return {
+            ...task,
+            subtasks: payload.subtasks,
+            status: payload.status,
+          };
+        }),
+        columns: columns.map((column) => {
+          if (column.name === payload.column.name) {
+            console.log("fly away");
+            return {
+              ...column,
+              tasks: column.tasks.filter((taskID) => taskID !== payload.id),
+            };
+          } else if (
+            column.name === payload.status &&
+            payload.status != payload.task.status
+          ) {
+            return {
+              ...column,
+              tasks: [...column.tasks, payload.id],
+            };
+          } else
+            return {
+              ...column,
+            };
+        }),
+      };
+    });
+    return {
+      ...state,
+      data: updatedData,
     };
   }
 );
@@ -106,16 +156,15 @@ export const boardReducer = combineReducers(
   addTaskReducer,
   addColumnReducer,
   addBoardReducer,
-  editBoardReducer
+  editBoardReducer,
+  completeTaskReducer
 );
 
 export const useBoard = () => {
   const { dispatch, state } = useGlobalState();
-  const { currentBoardId } = state;
+  const { currentBoardId, data } = state;
 
-  const currentBoard = dataJson.data.find(
-    (board) => board.id === currentBoardId
-  );
+  const currentBoard = data.find((board) => board.id === currentBoardId);
 
   return {
     setBoardId: (id) => dispatch(setCurrentBoardId(id)),
@@ -125,5 +174,6 @@ export const useBoard = () => {
     addColumn: (newColumn) => dispatch(addColumn(newColumn)),
     addBoard: (newBoard) => dispatch(addBoard(newBoard)),
     editBoard: (editedBoard) => dispatch(editBoard(editedBoard)),
+    completeTask: (completedTask) => dispatch(completeTask(completedTask)),
   };
 };

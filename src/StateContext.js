@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
+import dataJson from "./data.json";
 
 const StateContext = createContext();
 
@@ -9,6 +10,7 @@ const initializer = () => ({
     error: null,
   },
   currentBoardId: 0,
+  data: dataJson.data,
 });
 
 export const StateProvider = ({ children, reducer }) => {

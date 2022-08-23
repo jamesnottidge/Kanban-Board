@@ -3,6 +3,7 @@ import { CompleteTaskModal } from "./CompleteTaskModal";
 
 export const Task = (props) => {
   const { title, subtasks } = props.task;
+  //   console.log("flyer");
   const completedSubtasks = subtasks.filter(
     (subtask) => subtask.isCompleted === true
   );
@@ -13,7 +14,7 @@ export const Task = (props) => {
       <span>
         {completedSubtasks.length} of {subtasks.length} completed
       </span>
-      <CompleteTaskModal task={props.task} />
+      <CompleteTaskModal task={props.task} column={props.column} />
     </div>
   );
 };
