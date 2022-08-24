@@ -13,56 +13,49 @@ const [setCurrentBoardId, currentBoardIdReducer] = createActionAndReducer(
 const [addTask, addTaskReducer] = createActionAndReducer(
   "board/addTask",
   (state, payload) => {
-    const { data } = state;
-    let boardLocation;
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].id === state.currentBoardId) {
-        boardLocation = i;
-      }
-    }
+    const { data, currentBoardId } = state;
 
-    data[boardLocation] = {
-      ...data[boardLocation],
-      tasks: [
-        ...data[boardLocation].tasks,
-        {
-          ...payload,
-        },
-      ],
-    };
+    const updatedData = data.map((board) => {
+      if (board.id !== currentBoardId) return board;
+      const { tasks, columns } = board;
 
-    for (let i = 0; i < data[boardLocation].columns.length; i++) {
-      if (data[boardLocation].columns[i].name === payload.status) {
-        data[boardLocation].columns[i].tasks.push(payload.id);
-        console.log(data[boardLocation].columns[i]);
-      }
-    }
+      return {
+        ...board,
+        tasks: tasks.concat([payload]),
+        columns: columns.map((column) => {
+          if (column.name !== payload.status) return column;
+          return {
+            ...column,
+            tasks: [...column.tasks, payload.id],
+          };
+        }),
+      };
+    });
 
     return {
       ...state,
+      data: updatedData,
     };
   }
 );
+
 const [addColumn, addColumnReducer] = createActionAndReducer(
   "board/addColumn",
   (state, payload) => {
-    const { data } = state;
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].id === state.currentBoardId) {
-        // dataJson.data[i].columns.push(payload);
-        data[i] = {
-          ...data[i],
-          columns: [
-            ...data[i].columns,
-            {
-              ...payload,
-            },
-          ],
-        };
-      }
-    }
+    const { data, currentBoardId } = state;
+    const updatedData = data.map((board) => {
+      if (board.id !== currentBoardId) return board;
+      const { columns } = board;
+
+      return {
+        ...board,
+        columns: [...columns, payload],
+      };
+    });
+
     return {
       ...state,
+      data: updatedData,
     };
   }
 );
@@ -71,9 +64,19 @@ const [addBoard, addBoardReducer] = createActionAndReducer(
   "board/addBoard",
   (state, payload) => {
     const { data } = state;
-    data.push(payload);
+    const updatedData = [
+      ...data,
+      {
+        id: payload.id,
+        name: payload.name,
+        tasks: payload.tasks,
+        columns: payload.columns,
+      },
+    ];
+
     return {
       ...state,
+      data: updatedData,
     };
   }
 );
@@ -81,28 +84,50 @@ const [addBoard, addBoardReducer] = createActionAndReducer(
 const [editBoard, editBoardReducer] = createActionAndReducer(
   "board/editBoard",
   (state, payload) => {
-    const { data } = state;
-    let boardLocation;
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].id === state.currentBoardId) {
-        boardLocation = i;
-      }
-    }
+    const { data, currentBoardId } = state;
 
-    data[boardLocation] = {
-      ...data[boardLocation],
-      name: payload.name,
-      columns: [...payload.columns],
-    };
-
-    console.log(data[boardLocation].columns);
+    const updatedData = data.map((board) => {
+      if (board.id !== currentBoardId) return board;
+      return {
+        ...board,
+        name: payload.name,
+        columns: [...payload.columns],
+      };
+    });
 
     return {
       ...state,
+      data: updatedData,
     };
   }
 );
 
+const [editTaskStatus, editTaskStatusReducer] = createActionAndReducer(
+  "board/editTaskStatus",
+  (state, payload) => {
+    const { data, currentBoardId } = state;
+
+    const updatedData = data.map((board) => {
+      if (board.id !== currentBoardId) return board;
+      const { tasks } = board;
+      return {
+        ...board,
+        tasks: tasks.map((task) => {
+          if (task.id !== payload.taskId) return task;
+          return {
+            ...task,
+            status: payload.newStatus,
+          };
+        }),
+      };
+    });
+
+    return {
+      ...state,
+      data: updatedData,
+    };
+  }
+);
 const [completeTask, completeTaskReducer] = createActionAndReducer(
   "board/completeTask",
   (state, payload) => {
@@ -157,7 +182,8 @@ export const boardReducer = combineReducers(
   addColumnReducer,
   addBoardReducer,
   editBoardReducer,
-  completeTaskReducer
+  completeTaskReducer,
+  editTaskStatusReducer
 );
 
 export const useBoard = () => {
@@ -175,5 +201,6 @@ export const useBoard = () => {
     addBoard: (newBoard) => dispatch(addBoard(newBoard)),
     editBoard: (editedBoard) => dispatch(editBoard(editedBoard)),
     completeTask: (completedTask) => dispatch(completeTask(completedTask)),
+    editTaskStatus: (newTaskStatus) => dispatch(editTaskStatus(newTaskStatus)),
   };
 };

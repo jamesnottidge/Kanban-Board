@@ -12,7 +12,7 @@ export const Column = (props) => {
     <div className="border-4 border-black">
       {name}({tasks.length})
       {currentBoard.tasks.map((task) => {
-        if (task.status === name) {
+        if (column.tasks.find((id) => id === task.id)) {
           return (
             <div key={task.id}>
               <Task task={task} column={column} />

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useBoard } from "../../logic-containers/boardReducer";
 import { ControlledInput } from "../ControlledInput";
 
 export const NewBoardColumn = (props) => {
   const [value, setValue] = useState(props.value ? props.value : "");
+  const { editTaskStatus } = useBoard();
   const {
     newBoardColumns,
     newBoardColumn,
@@ -10,10 +12,6 @@ export const NewBoardColumn = (props) => {
     updateNewBoardColumnArray,
     deleteNewBoardColumn,
   } = props;
-
-  useEffect(() => {
-    setValue(newBoardColumn.name);
-  }, [newBoardColumn.name]);
 
   const handleInputChange = (e) => {
     setValue(e.target.value);
@@ -23,6 +21,12 @@ export const NewBoardColumn = (props) => {
     setNewBoardColumns(
       updateNewBoardColumnArray(newBoardColumns, newBoardColumn.id, value)
     );
+    newBoardColumn.tasks.forEach((element) => {
+      editTaskStatus({
+        taskId: element,
+        newStatus: value,
+      });
+    });
   };
 
   return (

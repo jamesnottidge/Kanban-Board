@@ -8,7 +8,6 @@ export const CompleteTaskModal = (props) => {
   const { columns } = currentBoard;
   const [status, setStatus] = useState("");
   const [subtasks, setSubtasks] = useState([...task.subtasks]);
-  //   console.log("test>>>", subtasks);
 
   const completedSubtasks = subtasks.filter(
     (subtask) => subtask.isCompleted === true
@@ -22,8 +21,7 @@ export const CompleteTaskModal = (props) => {
 
   useEffect(() => {
     setStatus(`${task.status}`);
-    // setSubtasks([...task.subtasks]);
-  }, []);
+  }, [task.status]);
   return (
     <div>
       <h2>{task.title}</h2>

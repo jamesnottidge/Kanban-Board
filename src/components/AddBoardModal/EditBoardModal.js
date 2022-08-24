@@ -42,6 +42,7 @@ export const EditBoardModal = (props) => {
             key={newBoardColumn.id}
             newBoardColumns={newBoardColumns}
             newBoardColumn={newBoardColumn}
+            value={newBoardColumn.name}
             setNewBoardColumns={setNewBoardColumns}
             updateNewBoardColumnArray={updateNewBoardColumnArray}
             deleteNewBoardColumn={deleteNewBoardColumn}

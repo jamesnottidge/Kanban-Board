@@ -1,4 +1,5 @@
 import React from "react";
+import { EditTaskModal } from "./AddTaskModal/EditTaskModal";
 import { CompleteTaskModal } from "./CompleteTaskModal";
 
 export const Task = (props) => {
@@ -14,7 +15,8 @@ export const Task = (props) => {
       <span>
         {completedSubtasks.length} of {subtasks.length} completed
       </span>
-      <CompleteTaskModal task={props.task} column={props.column} />
+      {/* <CompleteTaskModal task={props.task} column={props.column} /> */}
+      <EditTaskModal task={props.task} />
     </div>
   );
 };

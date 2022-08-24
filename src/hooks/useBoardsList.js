@@ -1,13 +1,14 @@
 import { useState } from "react";
 import dataJson from "../data.json";
+import { useGlobalState } from "../StateContext";
 
-console.log("Dera");
-
-const updateBoardsList = 1;
 export const useBoardsList = () => {
-  const boardList = dataJson.data.map((board) => ({
+  const { dispatch, state } = useGlobalState();
+  const { data } = state;
+
+  const boardList = data.map((board) => ({
     id: board.id,
     name: board.name,
   }));
-  return [boardList, updateBoardsList];
+  return [boardList];
 };
