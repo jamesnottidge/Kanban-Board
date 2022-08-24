@@ -251,6 +251,35 @@ const [deleteBoard, deleteBoardReducer] = createActionAndReducer(
   }
 );
 
+const [deleteTask, deleteTaskReducer] = createActionAndReducer(
+  "board/deleteTask",
+  (state, payload) => {
+    const { data, currentBoardId } = state;
+
+    const updatedData = data.map((board) => {
+      if (board.id !== currentBoardId) return board;
+      const { tasks, columns } = board;
+
+      return {
+        ...board,
+        tasks: tasks.filter((task) => task.id !== payload.task.id),
+        columns: columns.map((column) => {
+          if (column.name !== payload.task.status) return column;
+          return {
+            ...column,
+            tasks: column.tasks.filter((taskID) => taskID !== payload.task.id),
+          };
+        }),
+      };
+    });
+
+    return {
+      ...state,
+      data: updatedData,
+    };
+  }
+);
+
 export const boardReducer = combineReducers(
   currentBoardIdReducer,
   addTaskReducer,
@@ -260,7 +289,8 @@ export const boardReducer = combineReducers(
   completeTaskReducer,
   editTaskStatusReducer,
   editTaskReducer,
-  deleteBoardReducer
+  deleteBoardReducer,
+  deleteTaskReducer
 );
 
 export const useBoard = () => {
@@ -281,5 +311,6 @@ export const useBoard = () => {
     editTaskStatus: (newTaskStatus) => dispatch(editTaskStatus(newTaskStatus)),
     editTask: (editedTask) => dispatch(editTask(editedTask)),
     deleteBoard: () => dispatch(deleteBoard()),
+    deleteTask: (task) => dispatch(deleteTask(task)),
   };
 };

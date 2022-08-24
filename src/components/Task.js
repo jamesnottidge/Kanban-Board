@@ -1,9 +1,11 @@
 import React from "react";
 import { EditTaskModal } from "./AddTaskModal/EditTaskModal";
 import { CompleteTaskModal } from "./AddTaskModal/CompleteTaskModal";
+import { useBoard } from "../logic-containers/boardReducer";
 
 export const Task = (props) => {
   const { title, subtasks } = props.task;
+  const { deleteTask } = useBoard();
   //   console.log("flyer");
   const completedSubtasks = subtasks.filter(
     (subtask) => subtask.isCompleted === true
@@ -17,6 +19,15 @@ export const Task = (props) => {
       </span>
       <CompleteTaskModal task={props.task} column={props.column} />
       {/* <EditTaskModal task={props.task} column={props.column} /> */}
+      <button
+        onClick={() =>
+          deleteTask({
+            task: props.task,
+          })
+        }
+      >
+        Delete Task
+      </button>
     </div>
   );
 };
