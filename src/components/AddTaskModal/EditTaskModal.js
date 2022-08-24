@@ -6,8 +6,8 @@ import { Subtask } from "../Subtask";
 import dataJson from "../../data.json";
 
 export const EditTaskModal = (props) => {
-  const { task } = props;
-  const { currentBoard, addTask } = useBoard();
+  const { task, column } = props;
+  const { currentBoard, editTask } = useBoard();
   const columns = currentBoard?.columns || [];
   const [status, setStatus] = useState(columns[0]?.name);
   const [title, setTitle] = useState("");
@@ -91,16 +91,18 @@ export const EditTaskModal = (props) => {
       </div>
       <button
         onClick={() => {
-          addTask({
+          editTask({
             title: title,
-            id: Date.now(),
+            id: task.id,
+            task,
+            column,
             description,
             status,
             subtasks: [...subtasks],
           });
         }}
       >
-        Add New Task
+        Save Changes
       </button>
     </div>
   );

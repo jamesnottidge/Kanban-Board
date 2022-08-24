@@ -1,6 +1,6 @@
 import React from "react";
 import { EditTaskModal } from "./AddTaskModal/EditTaskModal";
-import { CompleteTaskModal } from "./CompleteTaskModal";
+import { CompleteTaskModal } from "./AddTaskModal/CompleteTaskModal";
 
 export const Task = (props) => {
   const { title, subtasks } = props.task;
@@ -16,7 +16,7 @@ export const Task = (props) => {
         {completedSubtasks.length} of {subtasks.length} completed
       </span>
       {/* <CompleteTaskModal task={props.task} column={props.column} /> */}
-      <EditTaskModal task={props.task} />
+      <EditTaskModal task={props.task} column={props.column} />
     </div>
   );
 };

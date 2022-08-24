@@ -39,6 +39,59 @@ const [addTask, addTaskReducer] = createActionAndReducer(
   }
 );
 
+const [editTask, editTaskReducer] = createActionAndReducer(
+  "board/editTask",
+  (state, payload) => {
+    const { data, currentBoardId } = state;
+
+    const updatedData = data.map((board) => {
+      if (board.id !== currentBoardId) return board;
+      const { tasks, columns } = board;
+      console.log("flyer");
+      return {
+        ...board,
+        tasks: tasks.map((task) => {
+          if (task.id !== payload.id) return task;
+          return {
+            ...task,
+            title: payload.title,
+            description: payload.description,
+            subtasks: payload.subtasks,
+            status: payload.status,
+          };
+        }),
+        columns: columns.map((column) => {
+          if (
+            column.name === payload.column.name &&
+            column.name !== payload.status
+          )
+            return {
+              ...column,
+              tasks: column.tasks.filter((taskID) => taskID !== payload.id),
+            };
+          else if (
+            column.name === payload.status &&
+            payload.status != payload.task.status
+          )
+            return {
+              ...column,
+              tasks: [...column.tasks, payload.id],
+            };
+          else
+            return {
+              ...column,
+            };
+        }),
+      };
+    });
+
+    return {
+      ...state,
+      data: updatedData,
+    };
+  }
+);
+
 const [addColumn, addColumnReducer] = createActionAndReducer(
   "board/addColumn",
   (state, payload) => {
@@ -128,6 +181,7 @@ const [editTaskStatus, editTaskStatusReducer] = createActionAndReducer(
     };
   }
 );
+
 const [completeTask, completeTaskReducer] = createActionAndReducer(
   "board/completeTask",
   (state, payload) => {
@@ -183,7 +237,8 @@ export const boardReducer = combineReducers(
   addBoardReducer,
   editBoardReducer,
   completeTaskReducer,
-  editTaskStatusReducer
+  editTaskStatusReducer,
+  editTaskReducer
 );
 
 export const useBoard = () => {
@@ -202,5 +257,6 @@ export const useBoard = () => {
     editBoard: (editedBoard) => dispatch(editBoard(editedBoard)),
     completeTask: (completedTask) => dispatch(completeTask(completedTask)),
     editTaskStatus: (newTaskStatus) => dispatch(editTaskStatus(newTaskStatus)),
+    editTask: (editedTask) => dispatch(editTask(editedTask)),
   };
 };

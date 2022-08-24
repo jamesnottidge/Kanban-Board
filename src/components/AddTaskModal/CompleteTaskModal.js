@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useBoard } from "../logic-containers/boardReducer";
-import { Task } from "./Task";
+import { useBoard } from "../../logic-containers/boardReducer";
+import { Task } from "../Task";
 
 export const CompleteTaskModal = (props) => {
   const { currentBoard, completeTask } = useBoard();
