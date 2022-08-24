@@ -4,7 +4,7 @@ import { EditBoardModal } from "./AddBoardModal/EditBoardModal";
 import { AddColumnModal } from "./AddColumnModal";
 import { Column } from "./Column";
 export const Board = (props) => {
-  const { currentBoard } = useBoard();
+  const { currentBoard, deleteBoard } = useBoard();
 
   const { columns } = currentBoard;
   return (
@@ -14,6 +14,7 @@ export const Board = (props) => {
       ))}
       <AddColumnModal />
       <EditBoardModal />
+      <button onClick={() => deleteBoard()}>Delete Board</button>
     </div>
   );
 };

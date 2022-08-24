@@ -12,7 +12,8 @@ export const Column = (props) => {
     <div className="border-4 border-black">
       {name}({tasks.length})
       {currentBoard.tasks.map((task) => {
-        if (column.tasks.find((id) => id === task.id)) {
+        // if (column.tasks.find((id) => id === task.id)) {
+        if (task.status === name) {
           return (
             <div key={task.id}>
               <Task task={task} column={column} />

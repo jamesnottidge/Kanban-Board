@@ -15,8 +15,8 @@ export const Task = (props) => {
       <span>
         {completedSubtasks.length} of {subtasks.length} completed
       </span>
-      {/* <CompleteTaskModal task={props.task} column={props.column} /> */}
-      <EditTaskModal task={props.task} column={props.column} />
+      <CompleteTaskModal task={props.task} column={props.column} />
+      {/* <EditTaskModal task={props.task} column={props.column} /> */}
     </div>
   );
 };

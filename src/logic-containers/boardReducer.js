@@ -202,7 +202,10 @@ const [completeTask, completeTaskReducer] = createActionAndReducer(
           };
         }),
         columns: columns.map((column) => {
-          if (column.name === payload.column.name) {
+          if (
+            column.name === payload.column.name &&
+            column.name !== payload.status
+          ) {
             console.log("fly away");
             return {
               ...column,
@@ -230,6 +233,24 @@ const [completeTask, completeTaskReducer] = createActionAndReducer(
   }
 );
 
+const [deleteBoard, deleteBoardReducer] = createActionAndReducer(
+  "board/deleteBoard",
+  (state, payload) => {
+    const { data, currentBoardId } = state;
+
+    const updatedData = data.filter((board) => {
+      if (data.length <= 1) return board.id;
+      if (data.length > 1) return board.id !== currentBoardId;
+    });
+
+    return {
+      ...state,
+      data: updatedData,
+      currentBoardId: updatedData[0].id,
+    };
+  }
+);
+
 export const boardReducer = combineReducers(
   currentBoardIdReducer,
   addTaskReducer,
@@ -238,7 +259,8 @@ export const boardReducer = combineReducers(
   editBoardReducer,
   completeTaskReducer,
   editTaskStatusReducer,
-  editTaskReducer
+  editTaskReducer,
+  deleteBoardReducer
 );
 
 export const useBoard = () => {
@@ -258,5 +280,6 @@ export const useBoard = () => {
     completeTask: (completedTask) => dispatch(completeTask(completedTask)),
     editTaskStatus: (newTaskStatus) => dispatch(editTaskStatus(newTaskStatus)),
     editTask: (editedTask) => dispatch(editTask(editedTask)),
+    deleteBoard: () => dispatch(deleteBoard()),
   };
 };
