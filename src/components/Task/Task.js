@@ -12,7 +12,7 @@ export const Task = (props) => {
     (subtask) => subtask.isCompleted === true
   );
   return (
-    <div className="rounded-lg p-3">
+    <div className=" p-3">
       {" "}
       {showCompleteTaskModal ? (
         <CompleteTaskModal

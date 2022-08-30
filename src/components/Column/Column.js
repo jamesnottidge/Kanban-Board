@@ -26,6 +26,7 @@ export const Column = (props) => {
                   {(provided, snapshot) => {
                     return (
                       <div
+                        className="rounded-lg"
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         style={{
