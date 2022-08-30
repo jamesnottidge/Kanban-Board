@@ -9,8 +9,10 @@
     "airtable": "^0.11.4",
     "chrome-launcher": "^0.15.1",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "tw-elements": "^1.0.0-alpha12",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

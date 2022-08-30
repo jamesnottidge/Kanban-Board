@@ -206,7 +206,6 @@ const [completeTask, completeTaskReducer] = createActionAndReducer(
             column.name === payload.column.name &&
             column.name !== payload.status
           ) {
-            console.log("fly away");
             return {
               ...column,
               tasks: column.tasks.filter((taskID) => taskID !== payload.id),
@@ -280,6 +279,62 @@ const [deleteTask, deleteTaskReducer] = createActionAndReducer(
   }
 );
 
+const [onDragEnd, onDragEndReducer] = createActionAndReducer(
+  "board/onDragEnd",
+  (state, payload) => {
+    const { data, currentBoardId } = state;
+
+    const updatedData = data.map((board) => {
+      if (board.id !== currentBoardId) return board;
+      const { tasks, columns } = board;
+      const copiedTasks = [...tasks];
+      const [removed] = copiedTasks.splice(payload.source.index, 1);
+
+      if (payload.source.droppableId !== payload.destination.droppableId) {
+        let updatedTask;
+        const updatedColumns = columns.map((column) => {
+          if (column.id == payload.source.droppableId) {
+            const updatedColumnTasks = column.tasks.filter(
+              (id) => id !== removed.id
+            );
+            return {
+              ...column,
+              tasks: updatedColumnTasks,
+            };
+          } else if (column.id == payload.destination.droppableId) {
+            updatedTask = {
+              ...removed,
+              status: column.name,
+            };
+            return {
+              ...column,
+              tasks: [...column.tasks, removed.id],
+            };
+          } else return column;
+        });
+
+        copiedTasks.splice(payload.destination.index, 0, updatedTask);
+        return {
+          ...board,
+          tasks: copiedTasks,
+          columns: updatedColumns,
+        };
+      } else {
+        copiedTasks.splice(payload.destination.index, 0, removed);
+        return {
+          ...board,
+          tasks: copiedTasks,
+        };
+      }
+    });
+
+    return {
+      ...state,
+      data: updatedData,
+    };
+  }
+);
+
 export const boardReducer = combineReducers(
   currentBoardIdReducer,
   addTaskReducer,
@@ -290,7 +345,8 @@ export const boardReducer = combineReducers(
   editTaskStatusReducer,
   editTaskReducer,
   deleteBoardReducer,
-  deleteTaskReducer
+  deleteTaskReducer,
+  onDragEndReducer
 );
 
 export const useBoard = () => {
@@ -312,5 +368,6 @@ export const useBoard = () => {
     editTask: (editedTask) => dispatch(editTask(editedTask)),
     deleteBoard: () => dispatch(deleteBoard()),
     deleteTask: (task) => dispatch(deleteTask(task)),
+    onDragEnd: (result) => dispatch(onDragEnd(result)),
   };
 };

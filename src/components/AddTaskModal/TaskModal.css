@@ -1,0 +1,24 @@
+.modal-custom {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.custom-modal-content {
+    box-sizing: border-box;
+    max-height: 80vh;
+    max-height: 90svh;
+    max-width: 30rem;
+    width: 90vw;
+    background-color: white;
+    overflow: scroll;
+    border-radius: 1rem;
+}
+
