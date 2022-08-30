@@ -11,6 +11,19 @@
     width: 15rem;
 }
 
+body {
+    overflow: hidden;
+}
+.color {
+    background-color: rgb(105,
+            66,
+            245);
+}
+
+.main-board {
+    max-width: 78vw;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

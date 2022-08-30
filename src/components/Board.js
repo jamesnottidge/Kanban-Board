@@ -21,43 +21,160 @@ export const Board = (props) => {
   };
   return (
     <div>
-      <header>
-        <button onClick={() => setShowAddTask(true)}>Add New Task</button>
-        <button onClick={() => setShowEditBoard(true)}>Edit Board</button>
-        <button onClick={() => deleteBoard()}>Delete Board</button>
+      <header className="flex p-4">
+        <div className="font-bold text-xl inline-block flex items-center">
+          {currentBoard.name}
+        </div>
+        <div className="flex ml-auto">
+          <button
+            onClick={() => setShowAddTask(true)}
+            className="color rounded-full py-3 px-4 text-white font-extrabold"
+          >
+            + <span className="hidden md:inline ">Add New Task</span>
+          </button>
+
+          <div className="dropdown relative">
+            <button
+              className="
+          dropdown-toggle
+          px-6
+          py-2.5
+          bg-none
+          text-white
+          font-medium
+          text-xs
+          leading-tight
+          uppercase
+          rounded
+          shadow-md
+          transition
+          duration-150
+          ease-in-out
+          flex
+          items-center
+          whitespace-nowrap"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <svg
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fas"
+                data-icon="caret-down"
+                className="w-2 ml-2"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512"
+              >
+                <path
+                  fill="purple"
+                  d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                ></path>
+              </svg>
+            </button>
+            <ul
+              className="
+              absolute
+          dropdown-menu
+          min-w-max
+          absolute
+          right-2
+          hidden
+          bg-white
+          text-base
+          z-50
+          float-left
+          py-2
+          list-none
+          text-left
+          rounded-lg
+          shadow-lg
+          
+          mt-4
+          hidden
+          m-0
+          bg-clip-padding
+          border-none
+        "
+              aria-labelledby="dropdownMenuButton1"
+            >
+              <li
+                onClick={() => setShowEditBoard(true)}
+                className="
+              dropdown-item
+              text-sm
+              py-2
+              px-4
+              font-normal
+              block
+              w-full
+              whitespace-nowrap
+              bg-transparent
+              text-gray-700
+              hover:bg-gray-100"
+              >
+                Edit Board
+              </li>
+              <li
+                onClick={() => deleteBoard()}
+                className=" 
+             dropdown-item
+              text-sm
+              py-2
+              px-4
+              font-normal
+              block
+              w-full
+              whitespace-nowrap
+              bg-transparent
+              text-gray-700
+              hover:bg-gray-100"
+              >
+                Delete Task
+              </li>
+            </ul>
+          </div>
+        </div>
       </header>
-      {showAddColumn ? (
-        <AddColumnModal setShowAddColumn={setShowAddColumn} />
-      ) : null}
-      {showAddTask ? <AddTaskModal setShowAddTask={setShowAddTask} /> : null}
-      {showEditBoard ? (
-        <EditBoardModal setShowEditBoard={setShowEditBoard} />
-      ) : null}
-      <div className="flex">
-        <DragDropContext onDragEnd={(result) => dragEnd(result)}>
-          {columns?.map((column) => (
-            <Droppable droppableId={`${column.id}`} key={column.id}>
-              {(provided, snapshot) => {
-                return (
-                  <div
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                    style={{
-                      background: snapshot.isDraggingOver
-                        ? "lightblue"
-                        : "lightgrey",
-                      padding: 4,
-                    }}
-                  >
-                    <Column column={column} />
-                    {provided.placeholder}
-                  </div>
-                );
-              }}
-            </Droppable>
-          ))}
-        </DragDropContext>
-        <div onClick={() => setShowAddColumn(true)}> Add Column</div>
+      <div className="">
+        {showAddColumn ? (
+          <AddColumnModal setShowAddColumn={setShowAddColumn} />
+        ) : null}
+        {showAddTask ? <AddTaskModal setShowAddTask={setShowAddTask} /> : null}
+        {showEditBoard ? (
+          <EditBoardModal setShowEditBoard={setShowEditBoard} />
+        ) : null}
+        <div className="flex flex-nowrap overflow-x-scroll main-board">
+          <DragDropContext onDragEnd={(result) => dragEnd(result)}>
+            {columns?.map((column) => (
+              <Droppable droppableId={`${column.id}`} key={column.id}>
+                {(provided, snapshot) => {
+                  return (
+                    <div
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                      style={{
+                        background: snapshot.isDraggingOver
+                          ? "lightblue"
+                          : "#f2f2f2",
+                        padding: 4,
+                      }}
+                    >
+                      <Column column={column} />
+                      {provided.placeholder}
+                    </div>
+                  );
+                }}
+              </Droppable>
+            ))}
+          </DragDropContext>
+          <div onClick={() => setShowAddColumn(true)} className="w-80">
+            {" "}
+            Add Column
+          </div>
+        </div>
       </div>
     </div>
   );

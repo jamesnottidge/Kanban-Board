@@ -12,7 +12,7 @@ export const Task = (props) => {
     (subtask) => subtask.isCompleted === true
   );
   return (
-    <div>
+    <div className="rounded-lg p-3">
       {" "}
       {showCompleteTaskModal ? (
         <CompleteTaskModal
@@ -30,14 +30,16 @@ export const Task = (props) => {
         />
       ) : null}
       <div
-        className="border-4 border-black border-solid"
+        className=""
         onClick={() => setShowCompleteTaskModal(true)}
         {...props.dragHandle}
       >
-        {title}
+        <span className="font-extrabold text-sm inline-block mb-3">
+          {title}
+        </span>
         <br />
-        <span>
-          {completedSubtasks.length} of {subtasks.length} completed
+        <span className="text-slate-600 font-semibold text-xs">
+          {completedSubtasks.length} of {subtasks.length} subtasks
         </span>
       </div>
     </div>

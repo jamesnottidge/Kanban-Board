@@ -1,0 +1,13 @@
+.sidebar{
+    min-width:18rem;
+    width: 21vw;
+    box-sizing: border-box;
+}
+.sidebar-content{
+    box-sizing: border-box;
+    padding-right: 1rem;
+}
+
+.create-board {
+    color: rgb(105,66,245);
+}

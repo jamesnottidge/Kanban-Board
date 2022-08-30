@@ -13,16 +13,6 @@ export const AddTaskModal = (props) => {
   const [description, setDescription] = useState("");
   const [subtasks, setSubtasks] = useState([]);
 
-  //   const updateSubtaskArray = (subtaskArray, id, value) => {
-  //     const subtasks = subtaskArray;
-  //     subtasks.forEach((element) => {
-  //       if (element.id === id) {
-  //         element.title = value;
-  //       }
-  //     });
-  //     return subtasks;
-  //   };
-
   const updateSubtaskArray = (subtaskArray, id, value) => {
     const subtasks = subtaskArray.map((element) => {
       if (element.id !== id) return element;
