@@ -1,13 +1,31 @@
-.sidebar{
-    min-width:18rem;
-    width: 21vw;
-    box-sizing: border-box;
+.sidebar {
+    min-width: auto;
+    width: auto;
+    min-height: 0vh;
 }
+
 .sidebar-content{
     box-sizing: border-box;
     padding-right: 1rem;
 }
 
+.kanban-logo{
+    display: none;
+}
+
 .create-board {
     color: rgb(105,66,245);
+}
+
+@media (min-width: 45rem ) {
+    .sidebar {
+            min-width: 18rem;
+            width: 21vw;
+            box-sizing: border-box;
+            /* min-height: 100vh; */
+        }
+
+        .kanban-logo {
+            display: block;
+        }
 }

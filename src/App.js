@@ -8,7 +8,10 @@ import { AddTaskModal } from "./components/AddTaskModal/AddTaskModal";
 function App() {
   return (
     <div className="App flex">
-      <Sidebar />
+      <section className="desktop-view">
+        <Sidebar />
+      </section>
+
       <Board />
     </div>
   );

@@ -5,11 +5,13 @@ import { EditBoardModal } from "./AddBoardModal/EditBoardModal";
 import { AddColumnModal } from "./Column/AddColumnModal";
 import { AddTaskModal } from "./AddTaskModal/AddTaskModal";
 import { Column } from "./Column/Column";
+import { SidebarModal } from "./Sidebar/SidebarModal";
 export const Board = (props) => {
   const { currentBoard, deleteBoard, onDragEnd } = useBoard();
   const [showAddTask, setShowAddTask] = useState(false);
   const [showEditBoard, setShowEditBoard] = useState(false);
   const [showAddColumn, setShowAddColumn] = useState(false);
+  const [showSidebarModal, setShowSidebarModal] = useState(false);
   const { columns } = currentBoard;
 
   const dragEnd = (result) => {
@@ -20,15 +22,21 @@ export const Board = (props) => {
     });
   };
   return (
-    <div className="ring-4 ring-red-600 overflow-x-hidden overflow-y-hidden main">
+    <div className="overflow-x-hidden overflow-y-hidden main">
       <header className="p-4 flex">
-        <div className="font-bold text-xl inline-block flex items-center">
+        <div className="font-bold text-xl inline-block flex items-center desktop-view">
+          {currentBoard.name}
+        </div>
+        <div
+          className="font-bold text-xl inline-block flex items-center mobile-view"
+          onClick={() => setShowSidebarModal(true)}
+        >
           {currentBoard.name}
         </div>
         <div className="flex ml-auto">
           <button
             onClick={() => setShowAddTask(true)}
-            className="color rounded-full py-3 px-4 text-white font-extrabold"
+            className="color rounded-full py-3 px-4 text-white font-extrabold "
           >
             + <span className="hidden md:inline ">Add New Task</span>
           </button>
@@ -37,8 +45,8 @@ export const Board = (props) => {
             <button
               className="
           dropdown-toggle
-          px-6
           py-2.5
+          px-3
           bg-none
           text-white
           font-medium
@@ -46,7 +54,6 @@ export const Board = (props) => {
           leading-tight
           uppercase
           rounded
-          shadow-md
           transition
           duration-150
           ease-in-out
@@ -141,6 +148,9 @@ export const Board = (props) => {
       <div className="">
         {showAddColumn ? (
           <AddColumnModal setShowAddColumn={setShowAddColumn} />
+        ) : null}
+        {showSidebarModal ? (
+          <SidebarModal setShowSidebarModal={setShowSidebarModal} />
         ) : null}
         {showAddTask ? <AddTaskModal setShowAddTask={setShowAddTask} /> : null}
         {showEditBoard ? (

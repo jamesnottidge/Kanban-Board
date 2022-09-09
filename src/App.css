@@ -21,7 +21,7 @@ body {
 }
 
 #root {
-    background-color: aqua;
+
 }
 .color {
     background-color: rgb(105,
@@ -48,6 +48,23 @@ body {
   }
 }
 
+ .desktop-view {
+     display: none;
+ }
+
+ .mobile-view {
+     display: block;
+ }
+
+@media (min-width: 45rem) {
+    .desktop-view {
+        display: block;
+    }
+
+    .mobile-view {
+        display: none;
+    }
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

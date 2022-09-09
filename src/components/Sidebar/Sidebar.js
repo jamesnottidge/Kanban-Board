@@ -16,12 +16,12 @@ export const Sidebar = (props) => {
   const [showAddBoardModal, setShowAddBoardModal] = useState(false);
 
   return (
-    <div className=" sidebar text-left min-h-screen">
+    <div className=" sidebar text-left ">
       {showAddBoardModal ? (
         <AddBoardModal setShowAddBoardModal={setShowAddBoardModal} />
       ) : null}
-      <header className=" h-20 px-8 mb-6">
-        <span className="my-4">
+      <header className=" h-20 px-8 mb-6 kanban-logo">
+        <span className="my-4 inline-block">
           <svg width="153" height="26" xmlns="http://www.w3.org/2000/svg">
             <g fill="none" fill-rule="evenodd">
               <path
