@@ -1,6 +1,10 @@
 .App {
   text-align: center;
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
+  /* overflow-x: hidden; */
+/* grid-template-columns: minmax(18rem, 21vw) 4fr; */
+/* max-width: 75vw; */
+/* display: grid; */
 }
 
 .App-logo {
@@ -13,7 +17,11 @@
 }
 
 body {
-    overflow: hidden;
+    
+}
+
+#root {
+    background-color: aqua;
 }
 .color {
     background-color: rgb(105,
@@ -21,8 +29,17 @@ body {
             245);
 }
 
+.main {
+    height: 100vh;
+}
+
 .main-board {
-    max-width: 78vw;
+    /* max-width: 75vw; */
+} 
+
+.main-board-header {
+    /* min-width: ;
+    width: 73vw; */
 }
 
 @media (prefers-reduced-motion: no-preference) {

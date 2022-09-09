@@ -20,8 +20,8 @@ export const Board = (props) => {
     });
   };
   return (
-    <div>
-      <header className="flex p-4">
+    <div className="ring-4 ring-red-600 overflow-x-hidden overflow-y-hidden main">
+      <header className="p-4 flex">
         <div className="font-bold text-xl inline-block flex items-center">
           {currentBoard.name}
         </div>
@@ -146,7 +146,7 @@ export const Board = (props) => {
         {showEditBoard ? (
           <EditBoardModal setShowEditBoard={setShowEditBoard} />
         ) : null}
-        <div className="flex flex-nowrap overflow-x-scroll main-board">
+        <div className="flex main-board overflow-x-scroll px-4">
           <DragDropContext onDragEnd={(result) => dragEnd(result)}>
             {columns?.map((column) => (
               <Droppable droppableId={`${column.id}`} key={column.id}>
@@ -170,9 +170,13 @@ export const Board = (props) => {
               </Droppable>
             ))}
           </DragDropContext>
-          <div onClick={() => setShowAddColumn(true)} className="w-80">
+          <div
+            onClick={() => setShowAddColumn(true)}
+            className="w-80 border-2 border-black p-4"
+          >
             {" "}
-            Add Column
+            <section className="">Add Column</section>
+            {/* <Column column={null} /> */}
           </div>
         </div>
       </div>

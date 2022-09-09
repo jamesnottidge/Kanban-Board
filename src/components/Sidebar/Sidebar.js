@@ -21,7 +21,7 @@ export const Sidebar = (props) => {
         <AddBoardModal setShowAddBoardModal={setShowAddBoardModal} />
       ) : null}
       <header className=" h-20 px-8 mb-6">
-        <span className="my-auto">
+        <span className="my-4">
           <svg width="153" height="26" xmlns="http://www.w3.org/2000/svg">
             <g fill="none" fill-rule="evenodd">
               <path

@@ -17,8 +17,8 @@
     max-height: 90svh;
     max-width: 30rem;
     width: 90vw;
-    background-color: white;
     overflow: scroll;
+    background-color: white;
     border-radius: 1rem;
 }
 
