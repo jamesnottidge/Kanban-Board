@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { EditTaskModal } from "../AddTaskModal/EditTaskModal";
 import { CompleteTaskModal } from "../AddTaskModal/CompleteTaskModal";
-import { useBoard } from "../../logic-containers/boardReducer";
 
 export const Task = (props) => {
   const { title, subtasks } = props.task;
