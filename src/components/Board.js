@@ -54,7 +54,6 @@ export const Board = (props) => {
           leading-tight
           uppercase
           rounded
-          transition
           duration-150
           ease-in-out
           flex

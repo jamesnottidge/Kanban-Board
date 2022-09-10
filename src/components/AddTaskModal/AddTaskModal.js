@@ -111,7 +111,6 @@ export const AddTaskModal = (props) => {
           uppercase
           rounded
           shadow-md
-          transition
           duration-150
           ease-in-out
           flex
