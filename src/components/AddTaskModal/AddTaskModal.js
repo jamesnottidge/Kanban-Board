@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useBoard } from "../../logic-containers/boardReducer";
-import { InputContext } from "../../logic-containers/InputContext";
-import { ControlledInput } from "../Controlled-Input/ControlledInput";
 import { Subtask } from "../Subtask";
 import "./TaskModal.css";
 

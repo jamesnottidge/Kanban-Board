@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useBoard } from "../../logic-containers/boardReducer";
-import { InputContext } from "../../logic-containers/InputContext";
-import { ControlledInput } from "../Controlled-Input/ControlledInput";
 import { Subtask } from "../Subtask";
-import dataJson from "../../data.json";
 import { Dropdown } from "../Dropdown/Dropdown";
 
 export const EditTaskModal = (props) => {

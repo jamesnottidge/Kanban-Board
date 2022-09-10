@@ -1,15 +1,11 @@
-import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { useBoard } from "../../logic-containers/boardReducer";
 import { Task } from "../Task/Task";
-import { CompleteTaskModal } from "../AddTaskModal/CompleteTaskModal";
-import { EditTaskModal } from "../AddTaskModal/EditTaskModal";
 import "./Column.css";
 
 export const Column = (props) => {
   const { column } = props;
   const { name, tasks } = column;
-  //   console.log(column);
   const { currentBoard } = useBoard();
 
   return (

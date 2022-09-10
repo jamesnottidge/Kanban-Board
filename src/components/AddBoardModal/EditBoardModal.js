@@ -4,7 +4,7 @@ import { NewBoardColumn } from "./NewBoardColumn";
 import "./BoardModal.css";
 
 export const EditBoardModal = (props) => {
-  const { addBoard, currentBoard, editBoard } = useBoard();
+  const { currentBoard, editBoard } = useBoard();
   const [newBoardName, setNewBoardName] = useState(currentBoard?.name);
   const [newBoardColumns, setNewBoardColumns] = useState([]);
   const updateNewBoardColumnArray = (newBoardColumnArray, id, value) => {

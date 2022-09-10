@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useBoard } from "../../logic-containers/boardReducer";
-import { ControlledInput } from "../Controlled-Input/ControlledInput";
 
 export const AddColumnModal = (props) => {
   const [newColumn, setNewColumn] = useState("");
