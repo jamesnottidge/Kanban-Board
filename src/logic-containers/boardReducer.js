@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { useGlobalState } from "../StateContext";
 import { combineReducers, createActionAndReducer } from "./utils";
 const [setCurrentBoardId, currentBoardIdReducer] = createActionAndReducer(
@@ -239,7 +240,7 @@ const [deleteBoard, deleteBoardReducer] = createActionAndReducer(
 
     const updatedData = data.filter((board) => {
       if (data.length <= 1) return board.id;
-      if (data.length > 1) return board.id !== currentBoardId;
+      return board.id !== currentBoardId;
     });
 
     return {

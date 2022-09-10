@@ -3,7 +3,6 @@ import { useBoard } from "../../logic-containers/boardReducer";
 import { AddBoardModal } from "../AddBoardModal/AddBoardModal";
 import React, { useState } from "react";
 import "./Sidebar.css";
-import { EditBoardModal } from "../AddBoardModal/EditBoardModal";
 import Boardsvg from "./Board.svg";
 // Next steps:
 // Create a useQuery hook that takes a function that returns a promise
@@ -11,8 +10,8 @@ import Boardsvg from "./Board.svg";
 // e.g. queryFn
 
 export const Sidebar = (props) => {
-  const [boardsList, updateBoardsList] = useBoardsList();
-  const { currentBoardId, setBoardId, currentBoard } = useBoard();
+  const [boardsList] = useBoardsList();
+  const { setBoardId, currentBoard } = useBoard();
   const [showAddBoardModal, setShowAddBoardModal] = useState(false);
 
   return (

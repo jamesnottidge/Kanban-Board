@@ -5,7 +5,6 @@ import { useBoard } from "../../logic-containers/boardReducer";
 
 export const Task = (props) => {
   const { title, subtasks } = props.task;
-  const { deleteTask } = useBoard();
   const [showEditTaskModal, setShowEditTaskModal] = useState(false);
   const [showCompleteTaskModal, setShowCompleteTaskModal] = useState(false);
   const completedSubtasks = subtasks.filter(

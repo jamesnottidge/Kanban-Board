@@ -1,7 +1,6 @@
-import { useGlobalState } from "../StateContext";
 import { createActionAndReducer, combineReducers } from "./utils";
 
-const [updateBoardsList, updateBoardsListReducer] = createActionAndReducer(
+const [updateBoardsListReducer] = createActionAndReducer(
   "boardsList/update",
   (state, payload) => {
     console.log("Fly");
