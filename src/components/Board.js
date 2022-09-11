@@ -138,7 +138,7 @@ export const Board = (props) => {
               text-gray-700
               hover:bg-gray-100"
               >
-                Delete Task
+                Delete Board
               </li>
             </ul>
           </div>
