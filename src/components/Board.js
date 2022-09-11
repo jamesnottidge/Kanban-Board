@@ -155,7 +155,7 @@ export const Board = (props) => {
         {showEditBoard ? (
           <EditBoardModal setShowEditBoard={setShowEditBoard} />
         ) : null}
-        <div className="flex main-board overflow-x-scroll px-4">
+        <div className="flex main-board overflow-x-scroll px-4 bg-gray-100">
           <DragDropContext onDragEnd={(result) => dragEnd(result)}>
             {columns?.map((column) => (
               <Droppable droppableId={`${column.id}`} key={column.id}>
@@ -181,10 +181,13 @@ export const Board = (props) => {
           </DragDropContext>
           <div
             onClick={() => setShowAddColumn(true)}
-            className="w-80 border-2 border-black p-4"
+            className="column flex items-center justify-center m-2"
           >
             {" "}
-            <section className="">Add Column</section>
+            <div className="text-gray-400 text-3xl font-extrabold">
+              {" "}
+              + New Column
+            </div>
             {/* <Column column={null} /> */}
           </div>
         </div>

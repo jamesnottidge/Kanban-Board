@@ -9,7 +9,7 @@ export const Column = (props) => {
   const { currentBoard } = useBoard();
 
   return (
-    <div className="w-80 text-left">
+    <div className="text-left">
       <span className="m-3 inline-block text-sm font-semibold text-slate-600">
         {name}({tasks.length})
       </span>
