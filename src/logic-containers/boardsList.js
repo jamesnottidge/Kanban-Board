@@ -1,6 +1,6 @@
 import { createActionAndReducer, combineReducers } from "./utils";
 
-const [updateBoardsListReducer] = createActionAndReducer(
+const [updateBoardsList, updateBoardsListReducer] = createActionAndReducer(
   "boardsList/update",
   (state, payload) => {
     console.log("Fly");
